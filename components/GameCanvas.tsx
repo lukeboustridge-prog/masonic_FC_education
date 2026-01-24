@@ -1227,7 +1227,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         ctx.fill();
         ctx.stroke();
     } else {
-        // FC APRON - Flap DOWN with TWO blue rosettes at bottom corners
+        // FC APRON - Flap DOWN with TWO green/blue rosettes at bottom corners
         ctx.beginPath();
         ctx.moveTo(-7, 0);
         ctx.lineTo(7, 0);
@@ -1237,8 +1237,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         ctx.fill();
         ctx.stroke();
 
-        // Two blue rosettes at bottom corners of apron
-        ctx.fillStyle = '#3b82f6'; // Blue rosettes
+        // Two green/blue rosettes at bottom corners of apron
+        ctx.fillStyle = '#0f766e'; // Teal rosettes
         ctx.beginPath();
         ctx.arc(-4, 8, 2, 0, Math.PI * 2); // Left rosette
         ctx.fill();
@@ -1246,8 +1246,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         ctx.arc(4, 8, 2, 0, Math.PI * 2); // Right rosette
         ctx.fill();
 
-        // Rosette centers (lighter blue)
-        ctx.fillStyle = '#93c5fd';
+        // Rosette centers (lighter teal)
+        ctx.fillStyle = '#5eead4';
         ctx.beginPath();
         ctx.arc(-4, 8, 0.8, 0, Math.PI * 2);
         ctx.fill();
