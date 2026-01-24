@@ -106,13 +106,13 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
 
   // Mutable Game State
   const playerRef = useRef<Player>({
-    x: 50, y: 0, width: 30, height: 45, 
-    vx: 0, vy: 0, 
-    isGrounded: false, 
-    color: '#ffffff', 
-    facing: 1, 
+    x: 50, y: DESIGN_HEIGHT - 100, width: 30, height: 45,
+    vx: 0, vy: 0,
+    isGrounded: false,
+    color: '#ffffff',
+    facing: 1,
     jumpCount: 0,
-    coyoteTimer: 0 
+    coyoteTimer: 0
   });
   const keysRef = useRef<{ [key: string]: boolean }>({});
   
@@ -267,6 +267,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         'square_compass',
         'wm',
         'inner_guard',
+        'senior_warden',
+        'junior_warden',
         'officer',
         'grand_master',
         'tassel',
@@ -1159,153 +1161,99 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
     ctx.lineTo(7, -20);
     ctx.fill();
 
+    // --- FELLOW CRAFT - Always visible (no blindfold in 2nd Degree) ---
+    // Eye
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(4, -17, 2, 2);
+
+    // Suit Body
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(-7, -10, 14, 20);
+
+    // White Shirt
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.moveTo(-4, -10); ctx.lineTo(4, -10); ctx.lineTo(0, 0);
+    ctx.fill();
+
+    // Black Tie
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.moveTo(-1, -10); ctx.lineTo(1, -10); ctx.lineTo(0.5, -2); ctx.lineTo(-0.5, -2);
+    ctx.fill();
+
+    // Legs - Animated
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(-6 + leftLegOffset, 10, 5, 12); // Left Leg
+    ctx.fillRect(1 + rightLegOffset, 10, 5, 12); // Right Leg
+
+    // Shoes
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(-6 + leftLegOffset, 22, 7, 3);
+    ctx.fillRect(1 + rightLegOffset, 22, 7, 3);
+
+    // Arms - Animated opposite to legs (natural walking motion)
+    ctx.fillStyle = '#0f172a';
+    const armAmplitude = 3 + velocityFactor * 1.5;
+    const leftArmSwing = isMoving ? Math.sin(walkCycle + Math.PI) * armAmplitude : 0;
+    const rightArmSwing = isMoving ? Math.sin(walkCycle) * armAmplitude : 0;
+
+    ctx.fillRect(-9 + leftArmSwing, -8, 3, 14);
+    ctx.fillRect(6 + rightArmSwing, -8, 3, 14);
+
+    // Hands
+    ctx.fillStyle = '#fca5a5';
+    ctx.fillRect(-9 + leftArmSwing, 6, 3, 3);
+    ctx.fillRect(6 + rightArmSwing, 6, 3, 3);
+
+    // --- APRON ---
+    // Always show apron - EA apron initially, FC apron after being passed
+    ctx.fillStyle = '#f8fafc'; // White Leather
+    ctx.strokeStyle = '#cbd5e1'; // Subtle border
+    ctx.lineWidth = 1;
+
+    // Main Square (Skirt)
+    ctx.fillRect(-7, 0, 14, 10);
+    ctx.strokeRect(-7, 0, 14, 10);
+
     if (!isRestored) {
-        // --- CANDIDATE STATE ---
-        // Blindfold (White cloth across eyes)
-        ctx.fillStyle = '#e2e8f0';
-        ctx.fillRect(2, -19, 6, 5); 
-        ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 0.5; ctx.strokeRect(2, -19, 6, 5);
-        // Tie goes around back
-        ctx.beginPath(); ctx.moveTo(2, -17); ctx.lineTo(-7, -17); ctx.stroke();
-
-        // Suit Body (Dark Navy)
-        ctx.fillStyle = '#0f172a'; 
-        ctx.fillRect(-7, -10, 14, 20);
-
-        // Right Breast Bare (Flesh patch on chest)
-        ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(0, -8, 6, 6); 
-
-        // Left Arm Bare (Flesh color) - Background Arm
-        ctx.fillStyle = '#fca5a5'; 
-        ctx.fillRect(-9 + (isMoving ? leftLegOffset * 0.5 : 0), -8, 3, 14); // Slight arm swing
-        
-        // Clothed Right Arm (Front)
-        ctx.fillStyle = '#0f172a'; 
-        ctx.fillRect(6 + (isMoving ? rightLegOffset * 0.5 : 0), -8, 3, 14);  
-
-        // Hands
-        ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(-9 + (isMoving ? leftLegOffset * 0.5 : 0), 6, 3, 3); 
-        ctx.fillRect(6 + (isMoving ? rightLegOffset * 0.5 : 0), 6, 3, 3);
-
-        // Legs (Trousers) - Animated
-        // Left Leg (Back)
-        ctx.fillStyle = '#0f172a'; 
-        ctx.fillRect(-6 + leftLegOffset, 10, 5, 12); 
-        // Left Knee Bare (Flesh patch on Left/Back leg)
-        ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(-6 + leftLegOffset, 14, 5, 4);
-
-        // Right Leg (Front)
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(1 + rightLegOffset, 10, 5, 12);  
-
-        // Shoes
-        // Left Foot (Back): Slipshod (Heel exposed)
-        ctx.fillStyle = '#000000'; 
-        ctx.fillRect(-6 + leftLegOffset, 22, 4, 3); // Toe only
-        ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(-2 + leftLegOffset, 22, 3, 3); // Heel bare
-
-        // Right Foot (Front): Shoe on
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(1 + rightLegOffset, 22, 7, 3);
-
-        // Cable Tow (Rope around neck) - Drawn LAST to be visible over body
-        ctx.strokeStyle = '#d97706'; // Rope color
-        ctx.lineWidth = 2.5;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        
-        ctx.beginPath();
-        // Loop around neck (Visual representation over the suit)
-        // Head is roughly -16 to -9. Suit top is -10.
-        // Draw ellipse-like curve for the noose
-        ctx.moveTo(-4, -11);
-        ctx.quadraticCurveTo(0, -7, 4, -11); // Front dip over chest
-        ctx.stroke();
-
-        // The running noose knot
-        ctx.fillStyle = '#b45309';
-        ctx.beginPath(); ctx.arc(3, -9, 2.5, 0, Math.PI*2); ctx.fill();
-
-        // Trailing end
-        ctx.beginPath();
-        ctx.moveTo(3, -9);
-        // Rope hangs down and swings slightly with movement
-        const ropeSwing = isMoving ? Math.sin(walkCycle) * 3 : 0;
-        ctx.quadraticCurveTo(6, -2, 5 + ropeSwing, 8); // Hangs down to side
-        ctx.stroke();
-
-    } else {
-        // --- RESTORED (Original) STATE ---
-        // Eye
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(4, -17, 2, 2); 
-
-        // Suit Body
-        ctx.fillStyle = '#0f172a'; 
-        ctx.fillRect(-7, -10, 14, 20);
-
-        // White Shirt
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.moveTo(-4, -10); ctx.lineTo(4, -10); ctx.lineTo(0, 0); 
-        ctx.fill();
-
-        // Black Tie
-        ctx.fillStyle = '#0f172a';
-        ctx.beginPath();
-        ctx.moveTo(-1, -10); ctx.lineTo(1, -10); ctx.lineTo(0.5, -2); ctx.lineTo(-0.5, -2);
-        ctx.fill();
-
-        // Legs - Animated
-        ctx.fillStyle = '#0f172a'; 
-        ctx.fillRect(-6 + leftLegOffset, 10, 5, 12); // Left Leg
-        ctx.fillRect(1 + rightLegOffset, 10, 5, 12); // Right Leg
-
-        // Shoes
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(-6 + leftLegOffset, 22, 7, 3); 
-        ctx.fillRect(1 + rightLegOffset, 22, 7, 3);
-
-        // Arms - Animated opposite to legs (natural walking motion)
-        ctx.fillStyle = '#0f172a';
-        // Arm swing amplitude scales with velocity like legs
-        const armAmplitude = 3 + velocityFactor * 1.5; // 3-5.25 pixels
-        const leftArmSwing = isMoving ? Math.sin(walkCycle + Math.PI) * armAmplitude : 0;
-        const rightArmSwing = isMoving ? Math.sin(walkCycle) * armAmplitude : 0;
-        
-        ctx.fillRect(-9 + leftArmSwing, -8, 3, 14); 
-        ctx.fillRect(6 + rightArmSwing, -8, 3, 14);  
-
-        // Hands
-        ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(-9 + leftArmSwing, 6, 3, 3); 
-        ctx.fillRect(6 + rightArmSwing, 6, 3, 3);
-    }
-
-    // Apron Overlay (If equipped)
-    if (showApron && isRestored) {
-        // Waist Band
-        ctx.fillStyle = '#f8fafc'; // White Leather
-        ctx.strokeStyle = '#cbd5e1'; // Subtle border
-        ctx.lineWidth = 1;
-
-        // Main Square (Skirt)
-        ctx.fillRect(-7, 0, 14, 10);
-        ctx.strokeRect(-7, 0, 14, 10);
-
-        // Flap (Triangle DOWN for NZ Style)
+        // EA APRON - Plain white with flap DOWN
         ctx.beginPath();
         ctx.moveTo(-7, 0);
         ctx.lineTo(7, 0);
-        ctx.lineTo(0, 5); // Points Down
+        ctx.lineTo(0, 5); // Points DOWN
         ctx.closePath();
         ctx.fillStyle = '#f8fafc';
         ctx.fill();
         ctx.stroke();
+    } else {
+        // FC APRON - Flap DOWN with TWO blue rosettes at bottom corners
+        ctx.beginPath();
+        ctx.moveTo(-7, 0);
+        ctx.lineTo(7, 0);
+        ctx.lineTo(0, 5); // Points DOWN for FC
+        ctx.closePath();
+        ctx.fillStyle = '#f8fafc';
+        ctx.fill();
+        ctx.stroke();
+
+        // Two blue rosettes at bottom corners of apron
+        ctx.fillStyle = '#3b82f6'; // Blue rosettes
+        ctx.beginPath();
+        ctx.arc(-4, 8, 2, 0, Math.PI * 2); // Left rosette
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(4, 8, 2, 0, Math.PI * 2); // Right rosette
+        ctx.fill();
+
+        // Rosette centers (lighter blue)
+        ctx.fillStyle = '#93c5fd';
+        ctx.beginPath();
+        ctx.arc(-4, 8, 0.8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(4, 8, 0.8, 0, Math.PI * 2);
+        ctx.fill();
     }
 
     ctx.restore();
@@ -1779,7 +1727,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
       ctx.globalAlpha = 1.0;
     }
 
-    // Draw Jacob's Ladder Labels with enhanced glow
+    // Draw Liberal Arts & Sciences Labels with enhanced glow (Seven Steps)
     ctx.save();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -1787,7 +1735,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
     ctx.shadowColor = TEMPLE_COLORS.GOLD_BRIGHT;
     ctx.shadowBlur = 15;
     ctx.fillStyle = TEMPLE_COLORS.GOLD_BRIGHT;
-    JACOBS_LADDER_LABELS.forEach(label => {
+    // Draw Liberal Arts & Sciences labels on the Seven Steps
+    LIBERAL_ARTS_LABELS.forEach(label => {
       if (label.x > cameraX - 100 && label.x < cameraX + width + 100) {
         ctx.fillText(label.text, label.x, DESIGN_HEIGHT - 40 + label.yOffset - 30);
       }
@@ -1911,9 +1860,9 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
 
         // --- NPC INTERACTIONS ---
 
-        // 0. SENIOR DEACON (Name Entry Challenge for FC)
+        // 0. INNER GUARD (Name Entry Challenge for FC)
         // He stands at the start. If name is not entered, he blocks path.
-        const igX = NPC_CONFIG.SENIOR_DEACON.x;
+        const igX = NPC_CONFIG.INNER_GUARD.x;
         const resolvedName = userNameRef.current || playerName;
         const resolvedRank = rankRef.current;
         const resolvedInitiationDate = initiationDateRef.current;
@@ -1921,32 +1870,33 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         const hasIdentityDetails = Boolean(resolvedName && resolvedRank && resolvedInitiationDate);
 
         if (hasIdentityDetails) {
+            // Player has all details - IG greets them
             if (!innerGuardGreetedRef.current && player.x > igX - 50) {
                 innerGuardGreetedRef.current = true;
                 player.vx = 0;
                 keysRef.current = {}; // Stop inputs
 
-                let response = `Brother ${resolvedRank} ${resolvedName}, you seek to pass to the Second Degree. Let me conduct you to the Winding Staircase.`;
+                let response = `Brother ${resolvedRank} ${resolvedName}, you seek to pass to the Second Degree. The Senior Warden awaits to invest you with the badge of a Fellow Craft.`;
                 if (resolvedIsGrandOfficer === true) {
-                    response = `A Grand Lodge Officer! I am honoured to conduct you, ${resolvedName}. Let us ascend the Winding Staircase together.`;
+                    response = `A Grand Lodge Officer! I am honoured to admit you, ${resolvedName}. The Senior Warden awaits to invest you.`;
                 } else if (resolvedIsGrandOfficer === false) {
-                    response = 'You seek advancement in Freemasonry. The Winding Staircase awaits - ascend and prove your proficiency.';
+                    response = 'You seek advancement in Freemasonry. The Senior Warden awaits to invest you with the badge of a Fellow Craft.';
                 }
 
-                const seniorDeaconOrbMock: Orb = {
+                const innerGuardOrbMock: Orb = {
                     id: 997,
                     x: 0, y: 0, radius: 0, active: true,
-                    name: 'Senior Deacon',
-                    spriteKey: 'senior_deacon',
+                    name: 'Inner Guard',
+                    spriteKey: 'inner_guard',
                     blurb: response
                 };
 
-                setActiveOrb(seniorDeaconOrbMock);
+                setActiveOrb(innerGuardOrbMock);
                 setGameState(GameState.LORE);
                 playSound('lore');
             }
-        } else if (!playerName) {
-            // Block player at 150
+        } else {
+            // Player is missing identity details - block and show name input
             if (player.x > igX - 50) {
                 player.x = igX - 50;
                 player.vx = 0;
@@ -1955,13 +1905,13 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
             }
         }
 
-        // 1. SENIOR WARDEN INTERACTION (First Landing)
+        // 1. SENIOR WARDEN INTERACTION (Near Start - Presents FC Apron)
         const swFirstX = NPC_CONFIG.SENIOR_WARDEN.x;
         const swFirstY = groundRefY + NPC_CONFIG.SENIOR_WARDEN.yOffset;
-        if (!isRestored) {
-            const distToSW = Math.abs((player.x + player.width/2) - swFirstX);
-            if (distToSW < 50 && Math.abs((player.y + player.height) - swFirstY) < 60) {
-                // Trigger Interaction
+        if (!isRestored && innerGuardGreetedRef.current) {
+            // Block player at SW until they receive the apron
+            if (player.x > swFirstX - 30) {
+                player.x = swFirstX - 30;
                 player.vx = 0;
                 keysRef.current = {}; // Stop movement
 
@@ -1970,7 +1920,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
                     x: 0, y: 0, radius: 0, active: true,
                     name: "Senior Warden",
                     spriteKey: "senior_warden",
-                    blurb: "Brother, you have ascended the first three steps representing the three Principal Officers of the Lodge. Continue your ascent through the Five Orders of Architecture."
+                    blurb: "Brother, I invest you with the distinguishing badge of a Fellow Craft Freemason. It points out that as a Craftsman you are expected to make the liberal arts and sciences your future study. Now ascend the Winding Staircase to the Middle Chamber."
                 };
                 setActiveOrb(swOrbMock);
                 setGameState(GameState.LORE);
@@ -2060,7 +2010,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
                 playSound('win');
                 return;
             } else {
-                 player.x = swX - 60;
+                 player.x = wmX - 60;
                  player.vx = 0;
                  if (!warningMessage) {
                     const toolsCollected = Math.floor(score / 100);
@@ -2184,15 +2134,16 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         // Camera system optimized for vertical gameplay (Winding Staircase)
         let targetCamX = player.x - viewW / 2 + player.width / 2;
         const lookAheadY = player.vy * 8;
-        // Keep player in lower portion of screen for vertical ascent view
-        let targetCamY = (player.y - viewH * 0.6) + lookAheadY;
+        // Keep player in upper portion of screen for vertical ascent view (player looks up)
+        let targetCamY = (player.y - viewH * 0.4) + lookAheadY;
         if (targetCamX < 0) targetCamX = 0;
         const maxScrollX = WORLD_WIDTH - viewW;
         if (targetCamX > maxScrollX) targetCamX = maxScrollX;
-        // Clamp Y to world bounds (vertical level goes negative)
-        if (targetCamY > 0) targetCamY = 0;
-        const maxScrollY = -WORLD_HEIGHT + viewH;
-        if (targetCamY < maxScrollY) targetCamY = maxScrollY;
+        // Clamp Y to world bounds - allow showing ground floor (positive Y up to groundRefY)
+        const maxCamY = groundRefY - viewH + 60; // Show ground floor with some padding
+        if (targetCamY > maxCamY) targetCamY = maxCamY;
+        const minCamY = -WORLD_HEIGHT + viewH;
+        if (targetCamY < minCamY) targetCamY = minCamY;
         cameraRef.current.x += (targetCamX - cameraRef.current.x) * 0.1;
         cameraRef.current.y += (targetCamY - cameraRef.current.y) * 0.15; // Faster Y follow for vertical gameplay 
 
@@ -2217,9 +2168,9 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         drawGoalArea(ctx, wmX, wmY, frameTime, isDoorUnlocked);
 
         // Draw Officers (NPCs) with breathing animation
-        drawNPC(ctx, 'senior_deacon', NPC_CONFIG.SENIOR_DEACON.x, groundRefY + NPC_CONFIG.SENIOR_DEACON.yOffset, frameTime);
+        drawNPC(ctx, 'inner_guard', NPC_CONFIG.INNER_GUARD.x, groundRefY + NPC_CONFIG.INNER_GUARD.yOffset, frameTime);
         drawNPC(ctx, 'senior_warden', swFirstX, swFirstY, frameTime);
-        drawNPC(ctx, 'officer', jwX, jwY, frameTime);
+        drawNPC(ctx, 'junior_warden', jwX, jwY, frameTime);
         // Worshipful Master awaits in the Middle Chamber
         drawNPC(ctx, 'wm', wmX, wmY, frameTime);
 
@@ -2374,6 +2325,21 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
               ctx.fillStyle = 'rgba(255, 215, 0, 0.3)';
               ctx.fillRect(plat.x - 5, plat.y - 5, plat.width + 10, plat.height + 10);
               ctx.shadowBlur = 0;
+              ctx.restore();
+              break;
+
+            case 'landing':
+              // Landing platforms between staircase sections
+              ctx.save();
+              // Main landing surface
+              drawMasonicFloor(ctx, plat.x, plat.y, plat.width, 24);
+              // Stone support below
+              ctx.fillStyle = plat.color;
+              ctx.fillRect(plat.x, plat.y + 24, plat.width, plat.height - 24);
+              // Decorative border
+              ctx.strokeStyle = TEMPLE_COLORS.GOLD;
+              ctx.lineWidth = 2;
+              ctx.strokeRect(plat.x, plat.y, plat.width, 24);
               ctx.restore();
               break;
 
@@ -2636,54 +2602,23 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         ctx.resetTransform();
 
         // --- VISUAL EFFECTS ---
-        if (!isRestored) {
-            // BLINDFOLD EFFECT (Hoodwink)
-            // Simulates limited vision through a blindfold with subtle candlelight flicker
-            const pCenterX = (player.x + player.width/2 - cameraRef.current.x) * scaleRatio;
-            const pCenterY = (player.y + player.height/2 - cameraRef.current.y) * scaleRatio;
+        // Fellow Craft - no blindfold, full vision with temple atmosphere
+        const radius = Math.max(w, h) * 0.8;
 
-            // Pulsing darkness - simulates flickering candlelight through blindfold
-            const pulse = Math.sin(frameTime / 800) * 0.05 + Math.sin(frameTime / 1300) * 0.03;
-            const centerDarkness = 0.25 + pulse;
-            const midDarkness = 0.78 + pulse;
-            const edgeDarkness = 0.97 + pulse * 0.3;
+        // Base vignette
+        const vignette = ctx.createRadialGradient(w/2, h/2, radius * 0.4, w/2, h/2, radius);
+        vignette.addColorStop(0, 'rgba(0,0,0,0)');
+        vignette.addColorStop(0.7, 'rgba(0,0,0,0.3)');
+        vignette.addColorStop(1, 'rgba(0,0,0,0.65)');
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, w, h);
 
-            // Create a radial gradient centered on player
-            const blindfold = ctx.createRadialGradient(pCenterX, pCenterY, 20 * scaleRatio, pCenterX, pCenterY, 300 * scaleRatio);
-
-            blindfold.addColorStop(0, `rgba(0, 0, 0, ${centerDarkness})`); // Center (Player visible but dim)
-            blindfold.addColorStop(0.3, `rgba(0, 0, 0, ${midDarkness})`); // Mid-range drops off
-            blindfold.addColorStop(1, `rgba(0, 0, 0, ${edgeDarkness})`); // Periphery is very dark
-
-            ctx.fillStyle = blindfold;
-            ctx.fillRect(0, 0, w, h);
-
-            // Add subtle warmth layer (candlelight glow)
-            const warmth = ctx.createRadialGradient(pCenterX, pCenterY, 0, pCenterX, pCenterY, 150 * scaleRatio);
-            const warmPulse = Math.sin(frameTime / 600) * 0.02 + 0.04;
-            warmth.addColorStop(0, `rgba(251, 191, 36, ${warmPulse})`);
-            warmth.addColorStop(1, 'rgba(251, 191, 36, 0)');
-            ctx.fillStyle = warmth;
-            ctx.fillRect(0, 0, w, h);
-        } else {
-            // NORMAL VIGNETTE with atmospheric glow
-            const radius = Math.max(w, h) * 0.8;
-
-            // Base vignette
-            const vignette = ctx.createRadialGradient(w/2, h/2, radius * 0.4, w/2, h/2, radius);
-            vignette.addColorStop(0, 'rgba(0,0,0,0)');
-            vignette.addColorStop(0.7, 'rgba(0,0,0,0.3)');
-            vignette.addColorStop(1, 'rgba(0,0,0,0.65)');
-            ctx.fillStyle = vignette;
-            ctx.fillRect(0, 0, w, h);
-
-            // Subtle golden glow at edges (temple atmosphere)
-            const atmosphericGlow = ctx.createRadialGradient(w/2, h/2, radius * 0.6, w/2, h/2, radius);
-            atmosphericGlow.addColorStop(0, 'rgba(251, 191, 36, 0)');
-            atmosphericGlow.addColorStop(1, 'rgba(251, 191, 36, 0.06)');
-            ctx.fillStyle = atmosphericGlow;
-            ctx.fillRect(0, 0, w, h);
-        }
+        // Subtle golden glow at edges (temple atmosphere)
+        const atmosphericGlow = ctx.createRadialGradient(w/2, h/2, radius * 0.6, w/2, h/2, radius);
+        atmosphericGlow.addColorStop(0, 'rgba(251, 191, 36, 0)');
+        atmosphericGlow.addColorStop(1, 'rgba(251, 191, 36, 0.06)');
+        ctx.fillStyle = atmosphericGlow;
+        ctx.fillRect(0, 0, w, h);
 
         // Grand Master Mode indicator when God Mode is active
         if (godModeRef.current) {
@@ -2815,6 +2750,13 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
   };
 
   const startGame = () => {
+      // Reset player to starting position (on ground floor)
+      const groundRefY = DESIGN_HEIGHT - 40;
+      const startY = groundRefY - 60; // Start above ground so player lands
+      playerRef.current = { x: 50, y: startY, width: 30, height: 45, vx: 0, vy: 0, isGrounded: false, color: '#ffffff', facing: 1, jumpCount: 0, coyoteTimer: 0 };
+      lastCheckpointRef.current = { x: 50, y: startY };
+      // Initialize camera to show ground floor area
+      cameraRef.current = { x: 0, y: groundRefY - DESIGN_HEIGHT + 60 };
       setGameState(GameState.PLAYING);
   };
   
@@ -2827,16 +2769,18 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
   };
 
   const resetGame = (goToMenu: boolean = false) => {
-    playerRef.current = { x: 50, y: DESIGN_HEIGHT - 100, width: 30, height: 45, vx: 0, vy: 0, isGrounded: false, color: '#ffffff', facing: 1, jumpCount: 0, coyoteTimer: 0 };
+    const groundRefY = DESIGN_HEIGHT - 40;
+    const startY = groundRefY - 60;
+    playerRef.current = { x: 50, y: startY, width: 30, height: 45, vx: 0, vy: 0, isGrounded: false, color: '#ffffff', facing: 1, jumpCount: 0, coyoteTimer: 0 };
     keysRef.current = {};
     orbsStateRef.current.clear();
     setScore(0);
-    lastCheckpointRef.current = { x: 50, y: DESIGN_HEIGHT - 100 };
+    lastCheckpointRef.current = { x: 50, y: startY };
     setCheckpointPopup(false);
     setWarningMessage(null);
     if (warningTimeoutRef.current) clearTimeout(warningTimeoutRef.current);
     setActiveQuestion(null);
-    cameraRef.current = { x: 0, y: 0 };
+    cameraRef.current = { x: 0, y: groundRefY - DESIGN_HEIGHT + 60 };
     setHasApron(false);
     setIsRestored(false); // Reset to candidate state
     setJwProgress(0); // Reset JW flow
@@ -3114,7 +3058,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
             </h2>
 
             <p className="text-slate-300 text-lg md:text-xl mb-2">
-              Brother <span className="text-amber-300 font-semibold">{playerName || 'Mason'}</span>
+              Brother <span className="text-amber-300 font-semibold">{playerName || 'Brother'}</span>
             </p>
 
             <p className="text-slate-400 text-sm md:text-base mb-2 italic">

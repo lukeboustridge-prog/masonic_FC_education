@@ -2,7 +2,18 @@
 
 import { BASE64_SPRITES } from './base64Assets';
 
-const FILE_BASED_SPRITES = ['wm', 'inner_guard', 'officer', 'Grand_master', 'Grand_Steward'] as const;
+const FILE_BASED_SPRITES = [
+  'wm',
+  'inner_guard',
+  'officer',
+  'Grand_master',
+  'Grand_Steward',
+  'square',
+  'level',
+  'Plumb_rule',
+  'Corn',
+  'G'
+] as const;
 const FILE_KEY_MAP: Record<string, string> = {
   worshipful_master: 'wm',
   wm: 'wm',
@@ -11,7 +22,12 @@ const FILE_KEY_MAP: Record<string, string> = {
   senior_deacon: 'officer',
   officer: 'officer',
   grand_master: 'Grand_master',
-  grand_steward: 'Grand_Steward'
+  grand_steward: 'Grand_Steward',
+  square: 'square',
+  level: 'level',
+  plumb: 'Plumb_rule',
+  corn: 'Corn',
+  letter_g: 'G'
 };
 const PROCEDURAL_KEY_MAP: Record<string, string> = {
   wm: 'worshipful_master',

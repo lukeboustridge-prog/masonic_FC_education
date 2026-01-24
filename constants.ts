@@ -87,7 +87,7 @@ export const WORLD_WIDTH = 4000;
 export const WORLD_HEIGHT = 3000; // Much taller - vertical ascent
 
 // Logical height for Scale-to-Fit
-export const DESIGN_HEIGHT = 400;
+export const DESIGN_HEIGHT = 360;
 
 // Checkpoints at each landing
 export const CHECKPOINTS = [
@@ -101,9 +101,9 @@ export const CHECKPOINTS = [
 
 // NPC Locations
 export const NPC_CONFIG = {
-  SENIOR_DEACON: { x: 150, yOffset: 0 },        // Guides at start
-  SENIOR_WARDEN: { x: 650, yOffset: -400 },     // First landing
-  JUNIOR_WARDEN: { x: 1100, yOffset: -900 },    // Second landing
+  INNER_GUARD: { x: 220, yOffset: 0 },          // Between the two great pillars
+  SENIOR_WARDEN: { x: 500, yOffset: 0 },        // On ground floor, presents FC apron before staircase
+  JUNIOR_WARDEN: { x: 1100, yOffset: -900 },    // Second landing - guards staircase
   WORSHIPFUL_MASTER: { x: 3500, yOffset: -2650 }, // Middle Chamber
 };
 
@@ -139,378 +139,681 @@ export const STAIRCASE_MARKERS = {
   SEVEN_STEPS: { startY: -900, endY: -1600, label: "7 Steps - Liberal Arts & Sciences" }
 };
 
-// Fellow Craft Questions (30 questions)
+// Fellow Craft Questions (55 questions)
+// Theme: Life and Discovery
 export const QUESTIONS: Question[] = [
-  // === RITUAL QUESTIONS ===
+  // === CATEGORY 1: PREPARATION & ENTRY ===
   {
     id: 1,
     text: "How were you prepared to be passed to the Second Degree?",
     answers: [
-      "In a manner somewhat similar to the former.",
-      "Exactly as in the First Degree.",
-      "With both breasts bare."
+      "In a manner somewhat similar to the former, but not hoodwinked; left arm, right breast, and right knee bare, left heel slipshod.",
+      "Exactly as in the First Degree, with the same preparation.",
+      "With both knees bare and a cable-tow twice around the body."
     ],
-    correctAnswer: "In a manner somewhat similar to the former.",
-    explanation: "The preparation for the Second Degree is similar to the First, but with the right arm, right breast, and right knee made bare, and the left heel slipshod.",
+    correctAnswer: "In a manner somewhat similar to the former, but not hoodwinked; left arm, right breast, and right knee bare, left heel slipshod.",
+    explanation: "The preparation is similar to the First Degree but differs: no hoodwink (eyes open for discovery), and the opposite limbs are made bare.",
     category: 'ritual'
   },
   {
     id: 2,
-    text: "On what were you admitted to the Second Degree?",
+    text: "On what were you admitted into a Lodge of Fellow Craft Freemasons?",
     answers: [
-      "The point of a sword.",
       "The Square.",
-      "The Compasses."
+      "The Compasses.",
+      "The point of a sharp instrument."
     ],
     correctAnswer: "The Square.",
-    explanation: "In the Second Degree, the candidate is admitted on the Square, presented to the right breast, to teach that the Square of Virtue should be the rule of our actions.",
+    explanation: "The candidate is admitted on the Square, reminding us to act on the square towards all mankind.",
     category: 'ritual'
   },
   {
     id: 3,
-    text: "What is the password leading from the First to the Second Degree?",
+    text: "What is a Square?",
     answers: [
-      "Tubal-Cain",
-      "Shibboleth",
-      "Boaz"
+      "An instrument containing an angle of 90 degrees, or the fourth part of a circle.",
+      "An instrument containing an angle of 45 degrees, or the eighth part of a circle.",
+      "A perfect four-sided figure with equal sides."
     ],
-    correctAnswer: "Shibboleth",
-    explanation: "Shibboleth denotes 'plenty' and is depicted in our Lodges by an ear of corn near to a fall of water. It was the password used by the Gileadites.",
-    category: 'ritual'
+    correctAnswer: "An instrument containing an angle of 90 degrees, or the fourth part of a circle.",
+    explanation: "The Square is defined as an instrument containing an angle of 90 degrees, the fourth part of a circle.",
+    category: 'working_tools'
   },
   {
     id: 4,
-    text: "What are the working tools of a Fellow Craft Mason?",
+    text: "What does admission on the Square remind us?",
     answers: [
-      "The 24-inch Gauge and Common Gavel.",
-      "The Square, Level, and Plumb Rule.",
-      "The Skirret, Pencil, and Compasses."
+      "That we are bound by every law, both moral and Divine, to act on the square towards all mankind.",
+      "That we must keep our working tools in perfect condition.",
+      "That the Lodge is built on a square foundation."
     ],
-    correctAnswer: "The Square, Level, and Plumb Rule.",
-    explanation: "The Square teaches morality, the Level equality, and the Plumb Rule justness and uprightness of life and actions.",
-    category: 'working_tools'
+    correctAnswer: "That we are bound by every law, both moral and Divine, to act on the square towards all mankind.",
+    explanation: "Admission on the Square teaches that we must act honestly and fairly with all people.",
+    category: 'ritual'
   },
   {
     id: 5,
-    text: "What does the Square teach?",
+    text: "Why were you not hoodwinked in this Degree?",
     answers: [
-      "To act upon the Square with all mankind.",
-      "To keep within due bounds.",
-      "To measure our work."
+      "Having received light in the First Degree, the Fellow Craft proceeds with eyes open to discovery.",
+      "Because the Second Degree is less secret than the First.",
+      "Because the darkness represents death, which comes in the Third Degree."
     ],
-    correctAnswer: "To act upon the Square with all mankind.",
-    explanation: "The Square teaches us to regulate our actions by rule and line, and to harmonize our conduct by the principles of morality and virtue.",
-    category: 'working_tools'
+    correctAnswer: "Having received light in the First Degree, the Fellow Craft proceeds with eyes open to discovery.",
+    explanation: "Having received Masonic light as an Entered Apprentice, the Fellow Craft now proceeds with eyes open to discover the hidden mysteries of nature and science.",
+    category: 'ritual'
   },
+
+  // === CATEGORY 2: THE JOURNEY ===
   {
     id: 6,
-    text: "What does the Level teach?",
+    text: "Where did the Fellow Crafts receive their wages?",
     answers: [
-      "That we are all equal in the sight of the Great Architect.",
-      "To build on a firm foundation.",
-      "To keep our secrets level."
+      "In the middle chamber of King Solomon's Temple.",
+      "At the entrance porch between the two pillars.",
+      "In the Sanctum Sanctorum (Holy of Holies)."
     ],
-    correctAnswer: "That we are all equal in the sight of the Great Architect.",
-    explanation: "The Level demonstrates that we are descended from the same stock, partake of the same nature, and share the same hope.",
-    category: 'working_tools'
+    correctAnswer: "In the middle chamber of King Solomon's Temple.",
+    explanation: "Fellow Crafts ascended to the middle chamber to receive their wages without scruple or diffidence.",
+    category: 'ritual'
   },
   {
     id: 7,
-    text: "What does the Plumb Rule teach?",
+    text: "How did they reach the middle chamber?",
     answers: [
-      "Justness and uprightness of life and actions.",
-      "To build our walls straight.",
-      "To measure depth."
+      "By ascending a winding staircase.",
+      "By passing between the two great pillars.",
+      "By climbing Jacob's Ladder."
     ],
-    correctAnswer: "Justness and uprightness of life and actions.",
-    explanation: "The Plumb Rule teaches us to walk uprightly in our several stations before God and man.",
-    category: 'working_tools'
+    correctAnswer: "By ascending a winding staircase.",
+    explanation: "The Fellow Crafts reached the middle chamber by ascending a winding staircase of fifteen steps.",
+    category: 'symbolism'
   },
-
-  // === WINDING STAIRCASE ===
   {
     id: 8,
-    text: "How many steps are in the Winding Staircase?",
+    text: "How many steps were in the winding staircase?",
     answers: [
-      "Twelve",
-      "Fifteen",
-      "Seven"
+      "Fifteen steps, divided into three flights of three, five, and seven.",
+      "Twelve steps, divided into three flights of four.",
+      "Seven steps, representing the Liberal Arts and Sciences."
     ],
-    correctAnswer: "Fifteen",
-    explanation: "The Winding Staircase consists of fifteen steps, divided into three, five, and seven.",
+    correctAnswer: "Fifteen steps, divided into three flights of three, five, and seven.",
+    explanation: "The winding staircase consists of fifteen steps in three flights: 3 + 5 + 7 = 15.",
     category: 'symbolism'
   },
   {
     id: 9,
-    text: "What do the first three steps of the Winding Staircase represent?",
+    text: "What do the three steps symbolize?",
     answers: [
-      "The three Principal Officers of the Lodge.",
+      "The three who rule a Lodge (Worshipful Master and two Wardens).",
       "Faith, Hope, and Charity.",
-      "The Three Great Lights."
+      "Wisdom, Strength, and Beauty."
     ],
-    correctAnswer: "The three Principal Officers of the Lodge.",
-    explanation: "The first three steps allude to the three principal officers of the Lodge: the Worshipful Master, Senior Warden, and Junior Warden.",
+    correctAnswer: "The three who rule a Lodge (Worshipful Master and two Wardens).",
+    explanation: "The first three steps represent the three principal officers who rule the Lodge.",
     category: 'symbolism'
   },
   {
     id: 10,
-    text: "What do the five steps represent?",
+    text: "What do the five steps symbolize?",
     answers: [
-      "The five senses of human nature.",
-      "The Five Points of Fellowship.",
-      "The Five Orders of Architecture."
+      "The five who hold a Lodge.",
+      "The Five Orders of Architecture.",
+      "The Five Points of Fellowship."
     ],
-    correctAnswer: "The Five Orders of Architecture.",
-    explanation: "The five steps allude to the Five Orders of Architecture: Tuscan, Doric, Ionic, Corinthian, and Composite.",
-    category: 'architecture'
+    correctAnswer: "The five who hold a Lodge.",
+    explanation: "The five steps represent the five who hold a Lodge: the WM, two Wardens, and two Fellow Crafts.",
+    category: 'symbolism'
   },
   {
     id: 11,
-    text: "What do the seven steps represent?",
+    text: "What do the seven steps symbolize?",
     answers: [
-      "The seven days of creation.",
+      "The seven who make a Lodge perfect.",
       "The Seven Liberal Arts and Sciences.",
-      "The seven ancient wonders."
+      "The seven days of creation."
     ],
-    correctAnswer: "The Seven Liberal Arts and Sciences.",
-    explanation: "The seven steps allude to the Seven Liberal Arts and Sciences: Grammar, Rhetoric, Logic, Arithmetic, Geometry, Music, and Astronomy.",
-    category: 'liberal_arts'
+    correctAnswer: "The seven who make a Lodge perfect.",
+    explanation: "Seven make a Lodge perfect, without which number no Lodge is perfect nor can any candidate be legally initiated.",
+    category: 'symbolism'
   },
-
-  // === FIVE ORDERS OF ARCHITECTURE ===
   {
     id: 12,
-    text: "Which is the most simple and solid of the Five Orders?",
+    text: "When you were made an EA, where were you placed? And now as a FC?",
     answers: [
-      "Doric",
-      "Tuscan",
-      "Ionic"
+      "As EA at the north-east to show newly admitted; as FC at the south-east to mark progress.",
+      "As EA at the south-east; as FC at the north-east.",
+      "As EA at the west; as FC at the east."
     ],
-    correctAnswer: "Tuscan",
-    explanation: "The Tuscan Order, invented in Tuscany, is the most simple and solid of the five orders.",
-    category: 'architecture'
+    correctAnswer: "As EA at the north-east to show newly admitted; as FC at the south-east to mark progress.",
+    explanation: "The north-east represents the newly admitted; the south-east marks the progress made in Freemasonry.",
+    category: 'ritual'
   },
   {
     id: 13,
-    text: "Which Order is deemed a masterpiece of art?",
+    text: "Who opposed the Fellow Crafts at the foot of the winding staircase?",
     answers: [
-      "Ionic",
-      "Composite",
-      "Corinthian"
+      "The Junior Warden, to whom they communicated the Pass Word.",
+      "The Senior Warden, to whom they gave the Sign.",
+      "The Inner Guard, who tested them with the Square."
     ],
-    correctAnswer: "Corinthian",
-    explanation: "The Corinthian, the richest of the five orders, is deemed a masterpiece of art. Its capital is adorned with two rows of leaves and eight volutes.",
-    category: 'architecture'
+    correctAnswer: "The Junior Warden, to whom they communicated the Pass Word.",
+    explanation: "The Junior Warden guards the foot of the staircase and receives the Pass Word (Shibboleth).",
+    category: 'ritual'
   },
   {
     id: 14,
-    text: "Which Order was invented by the Greeks and is the most ancient?",
+    text: "Who guarded the door of the middle chamber?",
     answers: [
-      "Tuscan",
-      "Doric",
-      "Ionic"
+      "The Senior Warden, to whom they communicated the Sign and Word of a Fellow Craft.",
+      "The Junior Warden, with the Pass Word.",
+      "The Worshipful Master, who tested their knowledge."
     ],
-    correctAnswer: "Doric",
-    explanation: "The Doric is the most ancient of the five orders and was invented by the Greeks. Its column is eight diameters high.",
-    category: 'architecture'
+    correctAnswer: "The Senior Warden, to whom they communicated the Sign and Word of a Fellow Craft.",
+    explanation: "The Senior Warden guards the door of the middle chamber and receives the Sign and Word.",
+    category: 'ritual'
   },
+
+  // === CATEGORY 3: TOOLS FOR LIVING ===
   {
     id: 15,
-    text: "What adorns the capital of the Ionic Order?",
+    text: "What are the Working Tools of a Fellow Craft Freemason?",
     answers: [
-      "Two rows of leaves",
-      "Volutes (scrolls)",
-      "Acanthus leaves"
+      "The Square, the Level, and the Plumb Rule.",
+      "The 24-inch Gauge and Common Gavel.",
+      "The Skirret, Pencil, and Compasses."
     ],
-    correctAnswer: "Volutes (scrolls)",
-    explanation: "The Ionic Order's capital is adorned with volutes, or scrolls. Its column is nine diameters high.",
-    category: 'architecture'
+    correctAnswer: "The Square, the Level, and the Plumb Rule.",
+    explanation: "The FC Working Tools are the Square (morality), Level (equality), and Plumb Rule (uprightness).",
+    category: 'working_tools'
   },
   {
     id: 16,
-    text: "Which Order was contrived by the Romans?",
+    text: "What is the operative use of the Square?",
     answers: [
-      "Corinthian",
-      "Composite",
-      "Tuscan"
+      "To try and adjust rectangular corners of buildings, and assist in bringing rude matter into due form.",
+      "To lay levels and prove horizontals.",
+      "To try and adjust uprights while fixing them on their proper bases."
     ],
-    correctAnswer: "Composite",
-    explanation: "The Composite Order was contrived by the Romans and combines elements from the other orders - the leaves of the Corinthian and volutes of the Ionic.",
-    category: 'architecture'
+    correctAnswer: "To try and adjust rectangular corners of buildings, and assist in bringing rude matter into due form.",
+    explanation: "Operatively, the Square tests and adjusts right angles in construction.",
+    category: 'working_tools'
   },
-
-  // === SEVEN LIBERAL ARTS & SCIENCES ===
   {
     id: 17,
-    text: "Which of the Liberal Arts is considered most important to Masonry?",
+    text: "What does the Square teach us morally?",
     answers: [
-      "Rhetoric",
-      "Geometry",
-      "Astronomy"
+      "To regulate our lives and actions according to the Masonic line and rule.",
+      "That we are all sprung from the same stock and share the same hope.",
+      "To walk justly and uprightly before God and man."
     ],
-    correctAnswer: "Geometry",
-    explanation: "Geometry, the fifth science, is considered most revered by Masons as it is the basis on which the superstructure of Freemasonry is erected.",
-    category: 'liberal_arts'
+    correctAnswer: "To regulate our lives and actions according to the Masonic line and rule.",
+    explanation: "The Square teaches us to regulate our conduct by morality and virtue, making us acceptable to the Divine Being.",
+    category: 'working_tools'
   },
   {
     id: 18,
-    text: "What does Grammar teach us?",
+    text: "What is the operative use of the Level?",
     answers: [
-      "To speak fluently",
-      "The proper arrangement of words",
-      "The powers of numbers"
+      "To lay levels and prove horizontals.",
+      "To try and adjust rectangular corners.",
+      "To try and adjust uprights on their proper bases."
     ],
-    correctAnswer: "The proper arrangement of words",
-    explanation: "Grammar is the key by which alone the door can be opened to the understanding of speech. It is the proper arrangement of words.",
-    category: 'liberal_arts'
+    correctAnswer: "To lay levels and prove horizontals.",
+    explanation: "Operatively, the Level is used to test that surfaces are truly horizontal.",
+    category: 'working_tools'
   },
   {
     id: 19,
-    text: "What does Rhetoric teach us?",
+    text: "What does the Level teach us morally?",
     answers: [
-      "To write beautifully",
-      "To speak copiously and fluently on any subject",
-      "To argue logically"
+      "That we are all sprung from the same stock, partakers of the same nature, and sharers in the same hope.",
+      "To regulate our lives and actions according to the Masonic line and rule.",
+      "To walk justly and uprightly before God and man."
     ],
-    correctAnswer: "To speak copiously and fluently on any subject",
-    explanation: "Rhetoric teaches us to speak copiously and fluently on any subject, not merely with propriety alone but with all the advantages of force and elegance.",
-    category: 'liberal_arts'
+    correctAnswer: "That we are all sprung from the same stock, partakers of the same nature, and sharers in the same hope.",
+    explanation: "The Level teaches equality - no eminence of situation should make us forget we are Brethren.",
+    category: 'working_tools'
   },
   {
     id: 20,
-    text: "What sublime science inspires the contemplative mind to soar aloft?",
+    text: "What is the operative use of the Plumb Rule?",
     answers: [
-      "Music",
-      "Geometry",
-      "Astronomy"
+      "To try and adjust uprights while fixing them on their proper bases.",
+      "To lay levels and prove horizontals.",
+      "To try and adjust rectangular corners of buildings."
     ],
-    correctAnswer: "Astronomy",
-    explanation: "Astronomy is that sublime science which inspires the contemplative mind to soar aloft, and read the wisdom, strength, and beauty of the great Creator in the heavens.",
-    category: 'liberal_arts'
+    correctAnswer: "To try and adjust uprights while fixing them on their proper bases.",
+    explanation: "Operatively, the Plumb Rule tests that structures are truly vertical.",
+    category: 'working_tools'
   },
-
-  // === SYMBOLISM ===
   {
     id: 21,
-    text: "What does the letter 'G' displayed in the Lodge denote?",
+    text: "What does the Plumb Rule teach us morally?",
     answers: [
-      "The Grand Lodge",
-      "God and Geometry",
-      "The Great Architect only"
+      "To walk justly and uprightly before God and man, turning neither to the right nor left from the paths of virtue.",
+      "That we are all sprung from the same stock and share the same hope.",
+      "To regulate our lives according to the Masonic line and rule."
     ],
-    correctAnswer: "God and Geometry",
-    explanation: "The letter 'G' denotes God, the Grand Geometrician of the Universe, and also Geometry, the fifth science.",
-    category: 'symbolism'
+    correctAnswer: "To walk justly and uprightly before God and man, turning neither to the right nor left from the paths of virtue.",
+    explanation: "The Plumb Rule teaches uprightness of life and conduct, never deviating from virtue.",
+    category: 'working_tools'
   },
   {
     id: 22,
-    text: "Why is Geometry so important to Masons?",
+    text: "To what is the Plumb Rule compared?",
     answers: [
-      "It helps us build better buildings.",
-      "It is the basis on which Freemasonry is erected.",
-      "It was King Solomon's favorite subject."
+      "Jacob's Ladder, as it connects heaven and earth and is the criterion of rectitude and truth.",
+      "The two pillars, as it represents stability.",
+      "The winding staircase, as it shows our ascent to knowledge."
     ],
-    correctAnswer: "It is the basis on which Freemasonry is erected.",
-    explanation: "Geometry is the basis on which the superstructure of Freemasonry is erected. By it we may trace nature through her various windings.",
-    category: 'symbolism'
+    correctAnswer: "Jacob's Ladder, as it connects heaven and earth and is the criterion of rectitude and truth.",
+    explanation: "The Plumb Rule is compared to Jacob's Ladder, connecting heaven and earth as the standard of truth.",
+    category: 'working_tools'
   },
   {
     id: 23,
-    text: "Where does the Fellow Craft receive his wages?",
+    text: "How do the three Working Tools together guide us?",
     answers: [
-      "At the door of the Lodge",
-      "In the Middle Chamber of King Solomon's Temple",
-      "At the Altar"
+      "The Square teaches morality, the Level equality, and the Plumb Rule justness and uprightness of life.",
+      "They teach us to build temples, both physical and spiritual.",
+      "The Square measures, the Level balances, and the Plumb Rule divides."
     ],
-    correctAnswer: "In the Middle Chamber of King Solomon's Temple",
-    explanation: "Fellow Crafts received their wages in the Middle Chamber of King Solomon's Temple, without scruple or diffidence.",
-    category: 'ritual'
+    correctAnswer: "The Square teaches morality, the Level equality, and the Plumb Rule justness and uprightness of life.",
+    explanation: "By square conduct, level steps, and upright intentions, we hope to ascend to those eternal mansions whence all goodness emanates.",
+    category: 'working_tools'
   },
+
+  // === CATEGORY 4: KNOWLEDGE & DISCOVERY ===
   {
     id: 24,
-    text: "What were the wages of a Fellow Craft?",
+    text: "What are the peculiar objects of research in this Degree?",
     answers: [
-      "Gold and silver coins",
-      "Corn, wine, and oil",
-      "Precious stones"
+      "The hidden mysteries of nature and science.",
+      "The secrets of the Third Degree.",
+      "The principles of Moral Truth and Virtue."
     ],
-    correctAnswer: "Corn, wine, and oil",
-    explanation: "The wages of a Fellow Craft were corn, wine, and oil - representing nourishment, refreshment, and joy.",
-    category: 'ritual'
+    correctAnswer: "The hidden mysteries of nature and science.",
+    explanation: "The Fellow Craft degree focuses on discovering the hidden mysteries of nature and science.",
+    category: 'liberal_arts'
   },
   {
     id: 25,
-    text: "What is depicted by an ear of corn near a fall of water?",
+    text: "What study is particularly recommended to a Fellow Craft?",
     answers: [
-      "The wages of a Fellow Craft",
-      "The word Shibboleth meaning 'plenty'",
-      "The harvest festival"
+      "The liberal arts and sciences, especially Geometry.",
+      "The history of the Craft.",
+      "The memorization of ritual."
     ],
-    correctAnswer: "The word Shibboleth meaning 'plenty'",
-    explanation: "Shibboleth, depicted by an ear of corn near to a fall of water, signifies plenty and was the password of the Gileadites.",
-    category: 'symbolism'
+    correctAnswer: "The liberal arts and sciences, especially Geometry.",
+    explanation: "Geometry is established as the basis of our Art, and the liberal arts and sciences are particularly recommended.",
+    category: 'liberal_arts'
   },
-
-  // === ADDITIONAL QUESTIONS ===
   {
     id: 26,
-    text: "On which pillar is the terrestrial globe depicted?",
+    text: "What does the Badge of a Fellow Craft point out?",
     answers: [
-      "The right-hand pillar (Jachin)",
-      "The left-hand pillar (Boaz)",
-      "Both pillars equally"
+      "That as a Craftsman, you are expected to make the Liberal Arts and Sciences your future study.",
+      "That you have completed your journey through the degrees.",
+      "That you are now qualified to teach Entered Apprentices."
     ],
-    correctAnswer: "The left-hand pillar (Boaz)",
-    explanation: "The left-hand pillar (Boaz) is adorned with the terrestrial globe, while the right-hand pillar (Jachin) bears the celestial globe.",
-    category: 'symbolism'
+    correctAnswer: "That as a Craftsman, you are expected to make the Liberal Arts and Sciences your future study.",
+    explanation: "The FC Badge indicates the expectation to study the Liberal Arts and Sciences to better discharge Masonic duty.",
+    category: 'ritual'
   },
   {
     id: 27,
-    text: "What do the two great pillars at the entrance of the Temple represent?",
+    text: "What principle did you learn in the First Degree?",
     answers: [
-      "Wisdom and Strength only",
-      "Stability and establishment",
-      "The sun and moon"
+      "The principles of Moral Truth and Virtue.",
+      "The hidden mysteries of nature and science.",
+      "The secrets of the Master Mason."
     ],
-    correctAnswer: "Stability and establishment",
-    explanation: "The two pillars, Boaz (meaning 'in strength') and Jachin (meaning 'to establish'), together represent stability and establishment.",
-    category: 'symbolism'
+    correctAnswer: "The principles of Moral Truth and Virtue.",
+    explanation: "The EA degree teaches the foundation of Moral Truth and Virtue.",
+    category: 'ritual'
   },
   {
     id: 28,
-    text: "How many senses of human nature are there?",
+    text: "What are you now expected to do as a Fellow Craft?",
     answers: [
-      "Three",
-      "Five",
-      "Seven"
+      "To extend your researches into the hidden mysteries of Nature and Science.",
+      "To prepare for the Third Degree immediately.",
+      "To teach newly admitted Entered Apprentices."
     ],
-    correctAnswer: "Five",
-    explanation: "There are five senses of human nature: Hearing, Seeing, Feeling, Smelling, and Tasting. The Fellow Craft is encouraged to cultivate all five.",
+    correctAnswer: "To extend your researches into the hidden mysteries of Nature and Science.",
+    explanation: "Building on the moral foundation of the EA degree, the FC extends research into nature and science.",
+    category: 'liberal_arts'
+  },
+
+  // === CATEGORY 5: THE TEMPLE SYMBOLS ===
+  {
+    id: 29,
+    text: "What were the names of the two Great Pillars at the entrance of King Solomon's Temple?",
+    answers: [
+      "Boaz on the left, Jachin on the right.",
+      "Jachin on the left, Boaz on the right.",
+      "Wisdom on the left, Strength on the right."
+    ],
+    correctAnswer: "Boaz on the left, Jachin on the right.",
+    explanation: "Boaz (meaning 'in strength') stood on the left; Jachin (meaning 'to establish') on the right.",
     category: 'symbolism'
   },
   {
-    id: 29,
-    text: "What science treats of the powers and properties of magnitudes?",
+    id: 30,
+    text: "What does Boaz denote?",
     answers: [
-      "Arithmetic",
-      "Geometry",
-      "Logic"
+      "Strength.",
+      "To establish.",
+      "Wisdom."
     ],
-    correctAnswer: "Geometry",
-    explanation: "Geometry treats of the powers and properties of magnitudes in general, where length, breadth, and thickness are considered.",
-    category: 'liberal_arts'
+    correctAnswer: "Strength.",
+    explanation: "Boaz means 'in strength' - the left pillar represents strength.",
+    category: 'symbolism'
   },
   {
-    id: 30,
-    text: "What does Music teach?",
+    id: 31,
+    text: "What does Jachin denote?",
     answers: [
-      "The art of forming concords to compose delightful harmony",
-      "The seven notes of the scale",
-      "How to play instruments"
+      "To establish.",
+      "Strength.",
+      "Foundation."
     ],
-    correctAnswer: "The art of forming concords to compose delightful harmony",
-    explanation: "Music teaches the art of forming concords, so as to compose delightful harmony by a mathematical and proportional arrangement of acute, grave, and mixed sounds.",
-    category: 'liberal_arts'
+    correctAnswer: "To establish.",
+    explanation: "Jachin means 'to establish' - the right pillar represents establishment.",
+    category: 'symbolism'
+  },
+  {
+    id: 32,
+    text: "What do the two names conjoined signify?",
+    answers: [
+      "Stability; for God said: 'In strength I will establish this Mine house to stand firm for ever.'",
+      "Wisdom and Beauty combined.",
+      "The union of heaven and earth."
+    ],
+    correctAnswer: "Stability; for God said: 'In strength I will establish this Mine house to stand firm for ever.'",
+    explanation: "Together, Boaz and Jachin signify Stability - strength combined with establishment.",
+    category: 'symbolism'
+  },
+  {
+    id: 33,
+    text: "What were the Pillars intended to remind the Israelites?",
+    answers: [
+      "The miraculous Pillar of Cloud and of Fire which went before them through the Red Sea.",
+      "The pillars of Hercules at the edge of the known world.",
+      "The two tablets of the law given to Moses."
+    ],
+    correctAnswer: "The miraculous Pillar of Cloud and of Fire which went before them through the Red Sea.",
+    explanation: "The pillars commemorated the Pillar of Cloud by day and Fire by night that guided the Israelites.",
+    category: 'symbolism'
+  },
+  {
+    id: 34,
+    text: "Who cast the two Pillars?",
+    answers: [
+      "Hiram, the Son of the Widow, servant of King Solomon.",
+      "King Solomon himself.",
+      "King Hiram of Tyre."
+    ],
+    correctAnswer: "Hiram, the Son of the Widow, servant of King Solomon.",
+    explanation: "Hiram Abiff, the skilled craftsman and 'Son of the Widow,' cast the two great pillars.",
+    category: 'symbolism'
+  },
+  {
+    id: 35,
+    text: "What ornamented the chapiters (capitals) of the Pillars?",
+    answers: [
+      "Network, Lilywork, and two rows of Pomegranates, one hundred in each row.",
+      "Acanthus leaves and volutes.",
+      "Celestial and terrestrial globes."
+    ],
+    correctAnswer: "Network, Lilywork, and two rows of Pomegranates, one hundred in each row.",
+    explanation: "The capitals were adorned with Network, Lilywork, and 200 pomegranates (100 in each row).",
+    category: 'symbolism'
+  },
+  {
+    id: 36,
+    text: "What does Network denote?",
+    answers: [
+      "Unity, from the connection of its meshes.",
+      "Purity and Peace.",
+      "Plenty, from its abundance."
+    ],
+    correctAnswer: "Unity, from the connection of its meshes.",
+    explanation: "Network symbolizes Unity because of how its meshes connect together.",
+    category: 'symbolism'
+  },
+  {
+    id: 37,
+    text: "What does Lilywork denote?",
+    answers: [
+      "Purity and Peace, from its whiteness.",
+      "Unity, from its connection.",
+      "Plenty, from its abundance."
+    ],
+    correctAnswer: "Purity and Peace, from its whiteness.",
+    explanation: "Lilywork represents Purity and Peace, symbolized by its white color.",
+    category: 'symbolism'
+  },
+  {
+    id: 38,
+    text: "What do Pomegranates denote?",
+    answers: [
+      "Plenty, from the exuberance of their seeds.",
+      "Unity, from their compact form.",
+      "Purity, from their color."
+    ],
+    correctAnswer: "Plenty, from the exuberance of their seeds.",
+    explanation: "Pomegranates symbolize Plenty due to their many seeds.",
+    category: 'symbolism'
+  },
+  {
+    id: 39,
+    text: "What Hebrew character drew the particular attention of our antient Brethren in the middle chamber?",
+    answers: [
+      "The letter G.",
+      "The letter H.",
+      "The Tetragrammaton."
+    ],
+    correctAnswer: "The letter G.",
+    explanation: "The letter G is the sacred symbol in the centre of the Lodge and middle chamber.",
+    category: 'symbolism'
+  },
+  {
+    id: 40,
+    text: "What does the letter G denote?",
+    answers: [
+      "God, the Grand Geometrician of the Universe.",
+      "Geometry alone.",
+      "The Grand Lodge."
+    ],
+    correctAnswer: "God, the Grand Geometrician of the Universe.",
+    explanation: "The letter G represents God, the Grand Geometrician, whom we must humbly adore.",
+    category: 'symbolism'
+  },
+  {
+    id: 41,
+    text: "Where is the Sacred Symbol situated?",
+    answers: [
+      "In the centre of the building.",
+      "Above the Worshipful Master's chair.",
+      "Between the two pillars."
+    ],
+    correctAnswer: "In the centre of the building.",
+    explanation: "The letter G is positioned in the centre of the Lodge building.",
+    category: 'symbolism'
+  },
+  {
+    id: 42,
+    text: "To whom does the Sacred Symbol allude?",
+    answers: [
+      "The Great Geometrician of the Universe.",
+      "The Grand Master of the Grand Lodge.",
+      "The architect Hiram Abiff."
+    ],
+    correctAnswer: "The Great Geometrician of the Universe.",
+    explanation: "The Sacred Symbol alludes to God, the Great Geometrician of the Universe.",
+    category: 'symbolism'
+  },
+
+  // === CATEGORY 6: REWARDS OF LABOR ===
+  {
+    id: 43,
+    text: "As it is the hope of reward that sweetens labour, where did our antient Brethren go to receive their wages?",
+    answers: [
+      "Into the middle chamber of King Solomon's Temple.",
+      "To the entrance porch of the Temple.",
+      "To the Sanctum Sanctorum."
+    ],
+    correctAnswer: "Into the middle chamber of King Solomon's Temple.",
+    explanation: "The hope of reward led the Fellow Crafts to the middle chamber to receive their wages.",
+    category: 'ritual'
+  },
+  {
+    id: 44,
+    text: "How did the Fellow Crafts receive their wages?",
+    answers: [
+      "Without scruple or diffidence.",
+      "With great ceremony and ritual.",
+      "In secret, away from others."
+    ],
+    correctAnswer: "Without scruple or diffidence.",
+    explanation: "They received wages without scruple (knowing they were entitled) and without diffidence (trusting their employers).",
+    category: 'ritual'
+  },
+  {
+    id: 45,
+    text: "Why without scruple?",
+    answers: [
+      "Well knowing they were justly entitled to them.",
+      "Because they had completed all their tasks.",
+      "Because the wages were predetermined."
+    ],
+    correctAnswer: "Well knowing they were justly entitled to them.",
+    explanation: "Without scruple means they knew their work earned them fair wages.",
+    category: 'ritual'
+  },
+  {
+    id: 46,
+    text: "Why without diffidence?",
+    answers: [
+      "From the great reliance they placed on the integrity of their employers in those days.",
+      "Because they feared no punishment.",
+      "Because the wages were always the same amount."
+    ],
+    correctAnswer: "From the great reliance they placed on the integrity of their employers in those days.",
+    explanation: "Without diffidence means they trusted completely in the honesty of King Solomon and his officers.",
+    category: 'ritual'
+  },
+  {
+    id: 47,
+    text: "How were the Entered Apprentices paid?",
+    answers: [
+      "In corn, wine, and oil.",
+      "In money.",
+      "In precious metals."
+    ],
+    correctAnswer: "In corn, wine, and oil.",
+    explanation: "Entered Apprentices received wages in kind: corn (nourishment), wine (refreshment), and oil (joy).",
+    category: 'ritual'
+  },
+  {
+    id: 48,
+    text: "How were the Fellow Crafts paid?",
+    answers: [
+      "In money.",
+      "In corn, wine, and oil.",
+      "In precious stones."
+    ],
+    correctAnswer: "In money.",
+    explanation: "Fellow Crafts, being more skilled, received monetary wages in the middle chamber.",
+    category: 'ritual'
+  },
+  {
+    id: 49,
+    text: "What is the Pass Word of a Fellow Craft and what does it signify?",
+    answers: [
+      "Shibboleth, meaning an ear of corn and also a stream of water.",
+      "Tubal-Cain, meaning a metalworker.",
+      "Boaz, meaning strength."
+    ],
+    correctAnswer: "Shibboleth, meaning an ear of corn and also a stream of water.",
+    explanation: "Shibboleth is Hebrew, meaning both an ear of corn and a stream of water (or running stream).",
+    category: 'ritual'
+  },
+  {
+    id: 50,
+    text: "How is the Pass Word usually depicted in a Lodge of Fellow Craft Freemasons?",
+    answers: [
+      "By an ear of corn near a stream of water.",
+      "By the letter G surrounded by rays.",
+      "By the Square and Compasses."
+    ],
+    correctAnswer: "By an ear of corn near a stream of water.",
+    explanation: "The Pass Word Shibboleth is depicted visually as an ear of corn near a stream of water.",
+    category: 'symbolism'
+  },
+  {
+    id: 51,
+    text: "What do the ear of corn and stream of water together symbolize?",
+    answers: [
+      "Plenty.",
+      "Strength and establishment.",
+      "Purity and peace."
+    ],
+    correctAnswer: "Plenty.",
+    explanation: "Together, the ear of corn and stream of water symbolize Plenty - abundance and provision.",
+    category: 'symbolism'
+  },
+
+  // === CATEGORY 7: VIRTUES & CHARACTER ===
+  {
+    id: 52,
+    text: "What is the highest perfection to which human nature can attain?",
+    answers: [
+      "To steer the bark of this life over the seas of passion, without quitting the helm of rectitude.",
+      "To memorize all Masonic ritual perfectly.",
+      "To rise to the highest office in the Grand Lodge."
+    ],
+    correctAnswer: "To steer the bark of this life over the seas of passion, without quitting the helm of rectitude.",
+    explanation: "The highest human perfection is navigating life's passions while maintaining moral rectitude.",
+    category: 'ritual'
+  },
+  {
+    id: 53,
+    text: "What should a Freemason hold in balance?",
+    answers: [
+      "A due medium between avarice and profusion; to hold the scales of justice with equal poise.",
+      "The Square in one hand and Compasses in the other.",
+      "Work and rest in equal measure."
+    ],
+    correctAnswer: "A due medium between avarice and profusion; to hold the scales of justice with equal poise.",
+    explanation: "A Freemason should balance between greed and wastefulness, holding justice evenly, subduing passions, and keeping eternity in view.",
+    category: 'ritual'
+  },
+  {
+    id: 54,
+    text: "What is expected of a Fellow Craft regarding other Brethren?",
+    answers: [
+      "To encourage industry and reward merit, supply wants and relieve necessities, never wrong them or see them wronged.",
+      "To test them regularly on their Masonic knowledge.",
+      "To report their failings to the Worshipful Master."
+    ],
+    correctAnswer: "To encourage industry and reward merit, supply wants and relieve necessities, never wrong them or see them wronged.",
+    explanation: "Fellow Crafts should support Brethren, relieve their needs, protect them from wrong, and view their interests as inseparable from their own.",
+    category: 'ritual'
+  },
+  {
+    id: 55,
+    text: "How should a Craftsman judge the offences of Brethren?",
+    answers: [
+      "Judge with candour, admonish with friendship, and reprehend with mercy.",
+      "Report all offences immediately to the Worshipful Master.",
+      "Ignore minor offences but report major ones."
+    ],
+    correctAnswer: "Judge with candour, admonish with friendship, and reprehend with mercy.",
+    explanation: "Brethren should be judged fairly, advised as friends, and corrected with mercy.",
+    category: 'ritual'
   }
 ];
 
