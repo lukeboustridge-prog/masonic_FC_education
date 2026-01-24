@@ -858,9 +858,6 @@ export const PLATFORM_DATA: Array<{
 }> = [
   // === GROUND FLOOR (Porch with Two Great Pillars) ===
   { x: 0, yOffset: 0, width: 800, height: 600, color: TEMPLE_COLORS.STONE_MID, type: 'floor' },
-  // Pillar bases
-  { x: 100, yOffset: -50, width: 60, height: 50, color: TEMPLE_COLORS.STONE_LIGHT, type: 'pillar_base' },
-  { x: 340, yOffset: -50, width: 60, height: 50, color: TEMPLE_COLORS.STONE_LIGHT, type: 'pillar_base' },
 
   // === THREE STEPS (Principal Officers) ===
   { x: 300, yOffset: -80, width: 200, height: 20, color: TEMPLE_COLORS.STEP_THREE, type: 'step' },
@@ -868,7 +865,7 @@ export const PLATFORM_DATA: Array<{
   { x: 460, yOffset: -240, width: 200, height: 20, color: TEMPLE_COLORS.STEP_THREE, type: 'step' },
 
   // === FIRST LANDING (after 3 steps) ===
-  { x: 500, yOffset: -320, width: 400, height: 100, color: TEMPLE_COLORS.STONE_MID, type: 'landing' },
+  { x: 500, yOffset: -320, width: 400, height: 40, color: TEMPLE_COLORS.STONE_MID, type: 'landing' },
 
   // === FIVE STEPS (Orders of Architecture) ===
   { x: 550, yOffset: -420, width: 180, height: 20, color: TEMPLE_COLORS.STEP_FIVE, type: 'step' },
@@ -878,7 +875,7 @@ export const PLATFORM_DATA: Array<{
   { x: 830, yOffset: -820, width: 180, height: 20, color: TEMPLE_COLORS.STEP_FIVE, type: 'step' },
 
   // === SECOND LANDING (after 5 steps) ===
-  { x: 900, yOffset: -920, width: 400, height: 100, color: TEMPLE_COLORS.STONE_MID, type: 'landing' },
+  { x: 900, yOffset: -920, width: 400, height: 40, color: TEMPLE_COLORS.STONE_MID, type: 'landing' },
 
   // === SEVEN STEPS (Liberal Arts & Sciences) ===
   { x: 1000, yOffset: -1020, width: 160, height: 20, color: TEMPLE_COLORS.STEP_SEVEN, type: 'step' },
@@ -890,7 +887,7 @@ export const PLATFORM_DATA: Array<{
   { x: 1480, yOffset: -1620, width: 160, height: 20, color: TEMPLE_COLORS.STEP_SEVEN, type: 'step' },
 
   // === THIRD LANDING (after 7 steps) ===
-  { x: 1550, yOffset: -1720, width: 500, height: 100, color: TEMPLE_COLORS.STONE_MID, type: 'landing' },
+  { x: 1550, yOffset: -1720, width: 500, height: 40, color: TEMPLE_COLORS.STONE_MID, type: 'landing' },
 
   // === APPROACH TO MIDDLE CHAMBER ===
   { x: 1700, yOffset: -1850, width: 200, height: 20, color: TEMPLE_COLORS.STONE_LIGHT, type: 'step' },

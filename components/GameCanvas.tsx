@@ -1835,6 +1835,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         y: groundRefY + o.yOffset,
         active: !orbsStateRef.current.has(o.id)
         }));
+        const collectedOrbs = orbsStateRef.current.size;
+        const allOrbsCollected = collectedOrbs >= ORB_DATA.length;
 
         // --- PHYSICS ---
         if (keys['ArrowLeft']) { player.vx -= 1; player.facing = -1; }
@@ -1993,11 +1995,9 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         const wmX = NPC_CONFIG.WORSHIPFUL_MASTER.x;
         const wmY = groundRefY + NPC_CONFIG.WORSHIPFUL_MASTER.yOffset;
         const distToWM = Math.abs((player.x + player.width/2) - wmX);
-        const maxScore = ORB_DATA.length * 100;
-
         // Trigger win if close to WM in Middle Chamber
         if (distToWM < 50 && Math.abs((player.y + player.height) - wmY) < 60) {
-            if (score >= maxScore) {
+            if (allOrbsCollected) {
                 // Middle Chamber Bonus (all stairs completed)?
                 let bonus = 0;
                 if (collectedTassels.size >= 3) {
@@ -2013,7 +2013,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
                  player.x = wmX - 60;
                  player.vx = 0;
                  if (!warningMessage) {
-                    const toolsCollected = Math.floor(score / 100);
+                    const toolsCollected = collectedOrbs;
                     const totalTools = ORB_DATA.length;
                     setWarningMessage(`Grand Master: "The door to the Fellow Craft degree remains sealed. You have collected ${toolsCollected} of ${totalTools} Working Tools. Return when you have proven your proficiency."`);
                     playSound('error');
@@ -2162,7 +2162,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         drawTempleBackground(ctx, cameraRef.current.x, cameraRef.current.y, viewW, viewH, frameTime);
 
         // Check if door is unlocked (all orbs collected)
-        const isDoorUnlocked = score >= ORB_DATA.length * 100;
+        const isDoorUnlocked = allOrbsCollected;
 
         // Draw Goal Area arch with temple door (behind the Worshipful Master in Middle Chamber)
         drawGoalArea(ctx, wmX, wmY, frameTime, isDoorUnlocked);
