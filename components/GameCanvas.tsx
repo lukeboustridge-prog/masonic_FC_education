@@ -1317,16 +1317,13 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
 
   const drawNPC = (ctx: CanvasRenderingContext2D, spriteKey: string, x: number, y: number, frameTime?: number) => {
       const img = spritesRef.current[spriteKey];
-      if (img && img.complete) {
+      if (img && img.complete && img.naturalHeight !== 0) {
           const targetHeight = playerRef.current.height || 45;
           const w = img.naturalWidth || 32;
           const h = img.naturalHeight || 32;
           const scale = targetHeight / h;
           const scaledW = w * scale;
           const scaledH = h * scale;
-
-          // Subtle breathing animation
-          const breathe = frameTime ? Math.sin(frameTime / 1000) * 0.5 : 0;
 
           ctx.save();
 
@@ -1336,10 +1333,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
           ctx.ellipse(x, y, scaledW / 2 - 3, 4, 0, 0, Math.PI * 2);
           ctx.fill();
 
-          // Draw NPC with subtle scale animation
-          ctx.translate(x, y);
-          ctx.scale(1, 1 + breathe * 0.015);
-          ctx.drawImage(img, -scaledW / 2, -scaledH, scaledW, scaledH);
+          // Draw NPC (standing still)
+          ctx.drawImage(img, x - scaledW / 2, y - scaledH, scaledW, scaledH);
 
           ctx.restore();
       } else {
