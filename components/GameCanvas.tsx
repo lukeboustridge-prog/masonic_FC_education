@@ -112,13 +112,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
   // Screen Shake State (for fall death effect)
   const [screenShake, setScreenShake] = useState({ x: 0, y: 0 });
 
-  // Tutorial State
-  const [showTutorial, setShowTutorial] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('tutorialSeen') !== 'true';
-    }
-    return true;
-  });
+  // Tutorial State - disabled since controls shown on title screen
+  const [showTutorial, setShowTutorial] = useState(false);
 
   useEffect(() => {
     if (userName) {
