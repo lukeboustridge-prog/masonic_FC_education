@@ -2908,41 +2908,34 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
 
   if (gameState === GameState.START_MENU) {
     return (
-      <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-950 bg-[url('https://www.transparenttextures.com/patterns/dark-leather.png')] p-2 md:p-4 overflow-y-auto">
+      <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
         {/* Force Landscape Warning for Preview/Desktop */}
         {isPortrait && !forceLandscape && (
-          <div className="absolute inset-0 z-[100] bg-slate-950/95 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
+          <div className="absolute inset-0 z-[100] bg-[#0b0f1a]/95 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
              <div className="text-6xl mb-4 animate-bounce">📱🔄</div>
-             <h2 className="text-2xl font-bold text-amber-400 mb-2">Best Experience in Landscape</h2>
-             <p className="text-slate-400 mb-6">If you are on a phone, please rotate it.<br/>If you are on PC, you can continue.</p>
-             <button onClick={() => setForceLandscape(true)} className="px-6 py-2 bg-slate-700 hover:bg-slate-600 rounded text-white font-bold transition-colors">Play Anyway</button>
+             <h2 className="text-2xl font-bold text-[#c8a24a] mb-2">Best Experience in Landscape</h2>
+             <p className="text-[#c0c7d1] mb-6">If you are on a phone, please rotate it.<br/>If you are on PC, you can continue.</p>
+             <button onClick={() => setForceLandscape(true)} className="px-6 py-2 bg-[#1b2440] hover:bg-[#243255] border border-[#c8a24a]/50 rounded text-[#c8a24a] font-bold transition-colors">Play Anyway</button>
           </div>
         )}
 
-        <div className="w-full max-w-md max-h-full md:max-h-[90vh] flex flex-col bg-slate-900/90 backdrop-blur-md p-6 rounded-xl border-2 border-amber-600 shadow-2xl overflow-y-auto">
-          <div className="flex flex-col items-center text-center justify-center">
-             <div className="mb-4">
-                {/* Logo: Square and Compass (Procedural) */}
-                <img
-                    src={generateSpriteUrl('square_compass')}
-                    className="w-20 h-20 md:w-28 md:h-28 mx-auto mb-4 object-contain"
-                    style={{imageRendering:'pixelated'}}
-                    onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const fallback = document.getElementById('logo-fallback');
-                        if (fallback) fallback.style.display = 'block';
-                    }}
-                />
-                <div id="logo-fallback" className="hidden text-4xl mb-2">🏛️</div>
-                <h1 className="text-2xl md:text-4xl font-bold text-amber-500 font-serif tracking-widest uppercase leading-tight">The Fellow Craft<br/>Challenge</h1>
-                <p className="text-slate-400 mt-2 italic text-sm md:text-base">Ascend the Winding Staircase</p>
-             </div>
-
-             <div className="w-full max-w-xs space-y-4 mt-4">
-                <p className="text-slate-300 text-sm">Prepare to prove your proficiency.</p>
-                <button onClick={startGame} className="w-full py-3 bg-amber-700 hover:bg-amber-600 text-white font-bold rounded transition-colors uppercase tracking-widest shadow-lg text-sm md:text-base">Begin Journey</button>
-             </div>
+        <div className="fc-fade-in w-[92%] max-w-xl rounded-2xl border border-[#c8a24a]/50 bg-[#0b0f1a]/90 p-6 text-center shadow-2xl">
+          <p className="text-sm uppercase tracking-[0.3em] text-[#c0c7d1]">Second Degree</p>
+          <h1 className="fc-display fc-glow mt-2 text-3xl md:text-4xl text-[#c8a24a]">Fellow Craft</h1>
+          <p className="mt-4 text-base text-[#c0c7d1]">
+            Ascend the Winding Staircase. Master the liberal arts and sciences, and prove yourself worthy of advancement.
+          </p>
+          <div className="mt-6 flex flex-col gap-3 text-sm text-[#c0c7d1]">
+            <p>Move: Arrow Keys or A/D</p>
+            <p>Jump: Space or W</p>
+            <p>Pause: Escape</p>
           </div>
+          <button
+            onClick={startGame}
+            className="mt-6 w-full rounded-lg border border-[#c8a24a] bg-[#1b2440] py-3 text-sm font-bold uppercase tracking-widest text-[#c8a24a] transition hover:bg-[#243255]"
+          >
+            Ascend the Staircase
+          </button>
         </div>
       </div>
     );
