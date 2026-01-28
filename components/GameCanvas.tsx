@@ -11,6 +11,39 @@ import LoreModal from './LoreModal';
 import { generateSpriteUrl } from '../utils/assetGenerator';
 import { submitScore as submitLeaderboardScore } from '../api/leaderboard';
 
+// Import shared rendering library (Early 2000s Graphics Refresh)
+import {
+  setSmoothing,
+  drawDropShadow,
+  drawDynamicShadow,
+  drawBloom,
+  drawCollectibleGlow,
+  drawVignette,
+  createScreenShake,
+  updateScreenShake,
+  ParticleSystem,
+  createLandingDust,
+  createJumpDust,
+  createCollectionBurst,
+  createCheckpointEffect,
+  applyEnhancedLighting,
+  drawTorchSmoke,
+  generateStarField,
+  renderStarField,
+  createSquashStretch,
+  applyLandingSquash,
+  updateSquashStretch,
+  getHoverOffset,
+  drawSpriteGlow,
+  drawGlintEffect,
+  TransitionManager,
+  ScorePopupManager,
+  ENHANCED_COLORS,
+  withAlpha,
+  type ScreenShake,
+  type StarField,
+} from '@shared/rendering';
+
 type GameCanvasProps = {
   userId?: string | null;
   userName?: string | null;
@@ -1878,11 +1911,11 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
                 player.vx = 0;
                 keysRef.current = {}; // Stop inputs
 
-                let response = `Brother ${resolvedRank} ${resolvedName}, you seek to pass to the Second Degree. The Senior Warden awaits to invest you with the badge of a Fellow Craft.`;
+                let response = `Whom have you there? Brother ${resolvedRank} ${resolvedName}, who was initiated on ${resolvedInitiationDate}. The Senior Warden awaits to invest you with the badge of a Fellow Craft.`;
                 if (resolvedIsGrandOfficer === true) {
-                    response = `A Grand Lodge Officer! I am honoured to admit you, ${resolvedName}. The Senior Warden awaits to invest you.`;
+                    response = `Whom have you there? A Grand Lodge Officer! I am honoured to admit you, ${resolvedName}. The Senior Warden awaits to invest you.`;
                 } else if (resolvedIsGrandOfficer === false) {
-                    response = 'You seek advancement in Freemasonry. The Senior Warden awaits to invest you with the badge of a Fellow Craft.';
+                    response = 'Whom have you there? You seek advancement in Freemasonry. The Senior Warden awaits to invest you with the badge of a Fellow Craft.';
                 }
 
                 const innerGuardOrbMock: Orb = {
@@ -2657,9 +2690,10 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
   }, [gameState, gameLoop]);
 
   const handleLoreContinue = () => {
-      // Special check for Master NPC (Fake Orb ID 999)
+      // Special check for Senior Warden NPC (Fake Orb ID 999)
       if (activeOrb && activeOrb.id === 999) {
           setIsRestored(true);
+          setHasApron(true);
           setActiveOrb(null);
           setGameState(GameState.PLAYING);
           return;
