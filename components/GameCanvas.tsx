@@ -2906,28 +2906,30 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
       <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
         {/* Force Landscape Warning for Preview/Desktop */}
         {isPortrait && !forceLandscape && (
-          <div className="absolute inset-0 z-[100] bg-[#0b0f1a]/95 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
+          <div className="absolute inset-0 z-[100] bg-slate-900/95 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
              <div className="text-6xl mb-4 animate-bounce">📱🔄</div>
-             <h2 className="text-2xl font-bold text-[#c8a24a] mb-2">Best Experience in Landscape</h2>
-             <p className="text-[#c0c7d1] mb-6">If you are on a phone, please rotate it.<br/>If you are on PC, you can continue.</p>
-             <button onClick={() => setForceLandscape(true)} className="px-6 py-2 bg-[#1b2440] hover:bg-[#243255] border border-[#c8a24a]/50 rounded text-[#c8a24a] font-bold transition-colors">Play Anyway</button>
+             <h2 className="text-2xl font-bold text-amber-400 mb-2">Best Experience in Landscape</h2>
+             <p className="text-slate-300 mb-6">If you are on a phone, please rotate it.<br/>If you are on PC, you can continue.</p>
+             <button onClick={() => setForceLandscape(true)} className="px-6 py-2 bg-slate-800 hover:bg-slate-700 border border-amber-500 rounded text-amber-400 font-bold transition-colors">Play Anyway</button>
           </div>
         )}
 
-        <div className="fc-fade-in w-[92%] max-w-xl rounded-2xl border border-[#c8a24a]/50 bg-[#0b0f1a]/90 p-6 text-center shadow-2xl">
-          <p className="text-sm uppercase tracking-[0.3em] text-[#c0c7d1]">Second Degree</p>
-          <h1 className="fc-display fc-glow mt-2 text-3xl md:text-4xl text-[#c8a24a]">Fellow Craft</h1>
-          <p className="mt-4 text-base text-[#c0c7d1]">
+        <div className="fc-fade-in w-[92%] max-w-xl rounded-2xl border border-amber-500 bg-slate-900/95 p-6 text-center shadow-2xl">
+          <p className="text-sm uppercase tracking-[0.3em] text-slate-300">Second Degree</p>
+          <h1 className="fc-display fc-glow mt-2 text-3xl md:text-4xl">
+            <span className="bg-gradient-to-r from-amber-400 via-white to-amber-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer">Fellow Craft</span>
+          </h1>
+          <p className="mt-4 text-base text-slate-300">
             Ascend the Winding Staircase. Master the liberal arts and sciences, and prove yourself worthy of advancement.
           </p>
-          <div className="mt-6 flex flex-col gap-3 text-sm text-[#c0c7d1]">
+          <div className="mt-6 flex flex-col gap-3 text-sm text-slate-300">
             <p>Move: Arrow Keys or A/D</p>
             <p>Jump: Space or W</p>
             <p>Pause: Escape</p>
           </div>
           <button
             onClick={startGame}
-            className="mt-6 w-full rounded-lg border border-[#c8a24a] bg-[#1b2440] py-3 text-sm font-bold uppercase tracking-widest text-[#c8a24a] transition hover:bg-[#243255]"
+            className="mt-6 w-full rounded-lg border border-amber-500 bg-slate-800 py-3 text-sm font-bold uppercase tracking-widest text-amber-400 transition hover:bg-slate-700"
           >
             Ascend the Staircase
           </button>
@@ -3141,7 +3143,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
       {/* Victory Screen */}
       {gameState === GameState.VICTORY && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-4 animate-in fade-in duration-500">
-          <div className="relative w-full max-w-xl max-h-[95vh] flex flex-col items-center bg-slate-900 border-2 md:border-4 border-amber-500 rounded-xl p-4 md:p-8 shadow-2xl text-center overflow-y-auto">
+          <div className="relative w-full max-w-xl max-h-[95vh] flex flex-col items-center bg-slate-900 border-2 md:border-4 border-amber-500 rounded-xl p-4 md:p-8 shadow-[0_0_20px_rgba(255,215,0,0.4)] text-center overflow-y-auto">
             {/* Trophy Icon */}
             <div className="shrink-0 w-16 h-16 md:w-24 md:h-24 bg-amber-900/30 rounded-full flex items-center justify-center mb-4 md:mb-6 border-2 md:border-4 border-amber-400 animate-pulse">
               <svg className="w-10 h-10 md:w-14 md:h-14 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
@@ -3166,7 +3168,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
             </p>
 
             {/* Score Display */}
-            <div className="w-full bg-slate-800/80 p-4 md:p-6 rounded-lg border border-slate-700 mb-4">
+            <div className="w-full bg-slate-800/80 p-4 md:p-6 rounded-lg border border-amber-500/30 shadow-[0_0_12px_rgba(255,215,0,0.15)] mb-4">
               <p className="text-slate-400 text-sm uppercase font-bold mb-2">Final Score</p>
               <p className="text-4xl md:text-5xl font-bold text-amber-400 mb-4">{score + 500}</p>
 
