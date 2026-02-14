@@ -1868,9 +1868,12 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
         // Safety for zero dimensions
         if (w === 0 || h === 0) return;
 
-        const scaleRatio = h / DESIGN_HEIGHT;
+        // On mobile landscape (short screens), apply 2x zoom so the player
+        // and world aren't tiny. Desktop heights (≥500px) keep natural scale.
+        const mobileZoom = h < 500 ? 2 : 1;
+        const scaleRatio = (h / DESIGN_HEIGHT) * mobileZoom;
         const viewW = w / scaleRatio;
-        const viewH = DESIGN_HEIGHT;
+        const viewH = h / scaleRatio;
 
         const player = playerRef.current;
         const keys = keysRef.current;
