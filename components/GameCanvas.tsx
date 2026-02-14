@@ -61,11 +61,16 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
   const isGrandOfficerRef = useRef<boolean | null>(isGrandOfficer ?? null);
   const innerGuardGreetedRef = useRef(false);
   
-  // Dimensions state - Initialize safely for SSR/Window to prevent 0x0
-  const [dimensions, setDimensions] = useState({ 
-    w: typeof window !== 'undefined' ? (window.innerWidth || 800) : 800, 
-    h: typeof window !== 'undefined' ? (window.innerHeight || 600) : 600 
-  });
+  // Dimensions state - Use visualViewport when available (respects safe areas on mobile)
+  const getViewportSize = () => {
+    if (typeof window === 'undefined') return { w: 800, h: 600 };
+    const vv = window.visualViewport;
+    return {
+      w: (vv?.width ?? window.innerWidth) || 800,
+      h: (vv?.height ?? window.innerHeight) || 600,
+    };
+  };
+  const [dimensions, setDimensions] = useState(getViewportSize);
   
   const [isPortrait, setIsPortrait] = useState(false);
   const [forceLandscape, setForceLandscape] = useState(false); // User override for preview/desktop
@@ -223,23 +228,23 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
   // --- Initialization & Resize ---
   useEffect(() => {
     const handleResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      // Safety check for 0 dimensions to prevent blank screen
+      const { w, h } = getViewportSize();
       if (w > 0 && h > 0) {
         setDimensions({ w, h });
-        // Only trigger portrait mode on narrow screens (phones)
-        // This allows desktop windows to be narrow without blocking gameplay
-        const isNarrow = w < 768; 
+        const isNarrow = w < 768;
         setIsPortrait(isNarrow && h > w);
       }
     };
-    
+
     // Initial call
     handleResize();
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.visualViewport?.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.visualViewport?.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   // --- Standalone Mode Detection ---
@@ -3101,7 +3106,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ userId, userName, rank, initiat
       )}
 
       {gameState === GameState.PLAYING && (
-        <div className="absolute inset-0 pointer-events-none z-20 flex flex-col justify-end pb-4 px-4">
+        <div className="absolute inset-0 pointer-events-none z-20 flex flex-col justify-end px-4" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
             <div className="flex justify-between items-end w-full select-none mb-2">
                 <div className="flex gap-3 pointer-events-auto">
                     <button
